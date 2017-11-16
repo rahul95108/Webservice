@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Webservice
-//
-//  Created by apple on 16/11/17.
-//  Copyright © 2017 apple. All rights reserved.
-//
 
 import UIKit
 
