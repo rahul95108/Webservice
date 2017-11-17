@@ -8,7 +8,8 @@ target 'Webservice' do
   # Pods for Webservice
 
   pod 'AFNetworking', '~> 3.1'
-
+  pod 'MBProgressHUD', '~> 1.1'
+  
   target 'WebserviceTests' do
     inherit! :search_paths
     # Pods for testing

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1845A5CF1FBEC6A7001E98FC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845A5CE1FBEC6A7001E98FC /* DetailViewController.swift */; };
+		1845A5D31FBEF658001E98FC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845A5D21FBEF658001E98FC /* CustomCell.swift */; };
 		1892E0801FBD884F00D284D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1892E07E1FBD884F00D284D8 /* Main.storyboard */; };
 		1892E0821FBD884F00D284D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1892E0811FBD884F00D284D8 /* Assets.xcassets */; };
 		1892E0851FBD884F00D284D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1892E0831FBD884F00D284D8 /* LaunchScreen.storyboard */; };
@@ -39,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		085094D6DABF0E5A9FA13C2A /* Pods-Webservice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Webservice.release.xcconfig"; path = "Pods/Target Support Files/Pods-Webservice/Pods-Webservice.release.xcconfig"; sourceTree = "<group>"; };
+		1845A5CE1FBEC6A7001E98FC /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		1845A5D21FBEF658001E98FC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		1892E0771FBD884F00D284D8 /* Webservice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webservice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1892E07F1FBD884F00D284D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1892E0811FBD884F00D284D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1845A5D11FBEF629001E98FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1845A5D21FBEF658001E98FC /* CustomCell.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1892E06E1FBD884F00D284D8 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +130,7 @@
 			children = (
 				1892E07E1FBD884F00D284D8 /* Main.storyboard */,
 				1892E0B01FBD8AC600D284D8 /* Constant.swift */,
+				1845A5D11FBEF629001E98FC /* Model */,
 				1892E0A81FBD88CC00D284D8 /* App Delegate */,
 				1892E0AA1FBD88CC00D284D8 /* View Controller */,
 				1892E0811FBD884F00D284D8 /* Assets.xcassets */,
@@ -157,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1892E0AE1FBD891300D284D8 /* HomeViewController.swift */,
+				1845A5CE1FBEC6A7001E98FC /* DetailViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -349,10 +363,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Webservice/Pods-Webservice-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -479,7 +495,9 @@
 			files = (
 				1892E0AC1FBD88CC00D284D8 /* AppDelegate.swift in Sources */,
 				1892E0AF1FBD891300D284D8 /* HomeViewController.swift in Sources */,
+				1845A5D31FBEF658001E98FC /* CustomCell.swift in Sources */,
 				1892E0B11FBD8AC600D284D8 /* Constant.swift in Sources */,
+				1845A5CF1FBEC6A7001E98FC /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +590,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -627,6 +647,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
