@@ -1,5 +1,6 @@
 
 import UIKit
+import Alamofire
 import MBProgressHUD
 import AFNetworking
 
@@ -15,6 +16,22 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // MAP Example
+        
+        let map = [1,2,3,4,5]
+        let arr = map.map{$0 * 2}
+        print(arr)
+        
+        // FILTER Example
+        
+        let arrFilter = map.filter{$0 % 2 == 0}
+        print(arrFilter)
+        
+        // REDUCE Example
+        
+        let arrReduce = map.reduce(0, +)
+        print(arrReduce)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +55,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             self.showHud()
-            self.getService()
+            getUsingAlamoFire()
+        //    self.getService()
         }
     }
     
@@ -63,7 +81,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             self.showHud()
-            self.postService()
+          //  self.postService()
+            postUsingAlamoFire()
         }
     }
     
@@ -77,6 +96,18 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Webservice Methods -
+    
+    func getUsingAlamoFire(){
+        let FORGOT_EMAIL = FORGOT_API+txtEmail.text!
+        Alamofire.request(FORGOT_EMAIL).responseJSON { response in
+            self.hidHud()
+            if let json = response.result.value {
+            //    print("JSON: \(json)")
+                let dict = json as! NSDictionary
+                print(dict.value(forKey: "response") as Any)
+            }
+        }
+    }
     
     func getService(){
         let FORGOT_EMAIL = FORGOT_API+txtEmail.text!
@@ -120,6 +151,15 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
                 self.hidHud()
                 print("Error")
             })
+    }
+    
+    func postUsingAlamoFire(){
+        let dict = NSMutableDictionary()
+        dict.setValue(txtPostEmail.text, forKey: "Email_id")
+        dict.setValue(txtPassword.text, forKey: "Password")
+        dict.setValue("", forKey: "device_token")
+        dict.setValue("iOS", forKey: "device_type")
+        dict.setValue("1", forKey: "login_type")
     }
     
     // MARK: - UITextfield Delegate Methods -
