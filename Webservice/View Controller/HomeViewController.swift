@@ -19,20 +19,49 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         
         // MAP Example
         
-        let map = [1,2,3,4,5]
-        let arr = map.map{$0 * 2}
-        print(arr)
+     //   let map = [1,2,3,4,5]
+    //    let arr = map.map{$0 * 2}
+     //   print(arr)
         
         // FILTER Example
         
-        let arrFilter = map.filter{$0 % 2 == 0}
-        print(arrFilter)
+    //    let arrFilter = map.filter{$0 % 2 == 0}
+    //    print(arrFilter)
         
         // REDUCE Example
         
-        let arrReduce = map.reduce(0, +)
-        print(arrReduce)
+    //    let arrReduce = map.reduce(0, +)
+    //    print(arrReduce)
+        
+//        let star = "⭐️"
+//        let introString = """
+//        A long time ago in a galaxy far,
+//        far away....
+//
+//        You could write multi-lined strings
+//        without "escaping" single quotes.
+//
+//        The indentation of the closing quotes
+//        below deside where the text line
+//        begins.
+//
+//        You can even dynamically add values
+//        from properties: \(star)
+//        """
+//        print(introString)
+//        temperature(planetNumber: 1)
     }
+    
+//    func temperature(planetNumber: Int) {
+//        switch planetNumber {
+//        case ...2: // anything less than or equal to 2
+//            print("Too hot")
+//        case 4...: // anything greater than or equal to 4
+//            print("Too cold")
+//        default:
+//            print("Justtttt right")
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,8 +84,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             self.showHud()
-            getUsingAlamoFire()
-        //    self.getService()
+        //    getUsingAlamoFire()
+            self.getService()
         }
     }
     
@@ -81,8 +110,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             self.showHud()
-          //  self.postService()
-            postUsingAlamoFire()
+            self.postService()
+          //  postUsingAlamoFire()
         }
     }
     

@@ -1,12 +1,15 @@
 
 import UIKit
 import AFNetworking
+import Alamofire
 
 class DetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate{
     
     @IBOutlet var tbView: UITableView!
     @IBOutlet var imgView: UIImageView!
     
+    @IBOutlet var btn: UIButton!
+        
     var imagePicker = UIImagePickerController()
     var manager = AFHTTPSessionManager()
     var arrData = NSMutableArray()
@@ -31,7 +34,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell:CustomCell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
         let dict = self.arrData.object(at: indexPath.row) as! NSDictionary
-        cell.lblTitle.text = (dict.value(forKey: "short_description") as! String)
+        cell.lblTitle.text = (dict.value(forKey: "product_name") as! String)
         return cell
     }
     
@@ -60,25 +63,52 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func callChepterService(){
         let dict = NSMutableDictionary()
-        dict.setValue("4", forKey: "course_id")
+        dict.setValue("", forKey: "attribute_id")
+        dict.setValue("", forKey: "brand_id")
+        dict.setValue("", forKey: "category_id")
+        dict.setValue("", forKey: "flavour_id")
+        dict.setValue("", forKey: "goal_id")
+        dict.setValue("", forKey: "measure_id")
+        dict.setValue("20", forKey: "page_limit")
+        dict.setValue("1", forKey: "page_num")
+        dict.setValue("1", forKey: "product_type")
+        dict.setValue("1", forKey: "sort_by")
         dict.setValue("412", forKey: "user_id")
         
-        self.manager.responseSerializer = AFHTTPResponseSerializer()
-        self.manager.post(CHEPTER_API, parameters: dict, progress: nil, success: { (operation:URLSessionDataTask, responseobject:Any?) in
-            do {
-                let resultJson = try JSONSerialization.jsonObject(with: responseobject as! Data, options: []) as? NSDictionary
-                let arr: NSArray = resultJson?.value(forKey: "data") as! NSArray
-                for i in 0..<arr.count{
-                    let dict = arr.object(at: i)
-                    self.arrData.addObjects(from: [dict])
-                }
-                self.tbView.reloadData()
-            } catch {
-                print("Error -> \(error)")
+        Alamofire.request(BROWSE_FILTER, method: .post, parameters: dict as? [String : AnyObject], encoding: JSONEncoding.default, headers: [:])
+            .responseJSON { response in switch response.result {
+            case .success(let JSON):
+                let dict = JSON as! NSDictionary
+                self.setData(dict: dict)
+            case .failure(let error):
+                print("Request failed with error: \(error)")
             }
-        }, failure: { (operation:URLSessionDataTask?, error) in
-                print("Error -> \(error)")
-            })
+        }
+        
+//        self.manager.responseSerializer = AFHTTPResponseSerializer()
+//        self.manager.post(BROWSE_FILTER, parameters: dict, progress: nil, success: { (operation:URLSessionDataTask, responseobject:Any?) in
+//            do {
+//                let resultJson = try JSONSerialization.jsonObject(with: responseobject as! Data, options: []) as? NSDictionary
+//                let arr: NSArray = resultJson?.value(forKey: "data") as! NSArray
+//                for i in 0..<arr.count{
+//                    let dict = arr.object(at: i)
+//                    self.arrData.addObjects(from: [dict])
+//                }
+//                self.tbView.reloadData()
+//            } catch {
+//                print("Error -> \(error)")
+//            }
+//        }, failure: { (operation:URLSessionDataTask?, error) in
+//                print("Error -> \(error)")
+//            })
+    }
+    
+    func setData(dict: NSDictionary){
+        let arr: NSArray = dict.value(forKey: "response") as! NSArray
+        for i in 0..<arr.count{
+            self.arrData.add(arr.object(at: i))
+        }
+        self.tbView.reloadData()
     }
     
     // MARK: - Image Upload -
