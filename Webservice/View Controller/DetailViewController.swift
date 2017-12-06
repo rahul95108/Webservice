@@ -1,18 +1,23 @@
 
 import UIKit
+import SDWebImage
 import AFNetworking
 import Alamofire
 
-class DetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate{
+class DetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UISearchBarDelegate{
     
-    @IBOutlet var tbView: UITableView!
-    @IBOutlet var imgView: UIImageView!
+    @IBOutlet weak var tbView: UITableView!
+    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet var btn: UIButton!
         
     var imagePicker = UIImagePickerController()
     var manager = AFHTTPSessionManager()
+    
     var arrData = NSMutableArray()
+    var arrSearch = NSMutableArray()
+    var searchActive:Bool = false
     
     // MARK: - UIView Life Cycle Methods -
 
@@ -28,14 +33,63 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     // MARK: - UITableView Delegate Methods -
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        if searchActive {
+            return self.arrSearch.count
+        }
         return self.arrData.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell:CustomCell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
-        let dict = self.arrData.object(at: indexPath.row) as! NSDictionary
-        cell.lblTitle.text = (dict.value(forKey: "product_name") as! String)
+        var dict = NSDictionary()
+        
+        if searchActive {
+            dict = self.arrSearch.object(at: indexPath.row) as! NSDictionary
+        }
+        else{
+            dict = self.arrData.object(at: indexPath.row) as! NSDictionary
+        }
+        cell.lblTitle.text = dict.value(forKey: "product_name") as? String
+        cell.lblDetail.text = dict.value(forKey: "short_description") as? String
+        
+        let arr = dict.value(forKey: "product_image") as! NSArray
+        let str = arr.object(at: 0)
+        
+        cell.imgView.sd_setImage(with: URL(string: str as! String), placeholderImage: UIImage(named: ""))
         return cell
+    }
+    
+    // MARK: - UISearchBar Delegate Methods -
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.arrSearch = NSMutableArray()
+        if searchBar.text == "" {
+            arrSearch = arrData
+        } else {
+            let namePredicate =
+                NSPredicate(format: "product_name CONTAINS[cd] %@ OR short_description CONTAINS[cd] %@",searchBar.text!,searchBar.text!);
+            
+            let filteredArray = arrData.filter { namePredicate.evaluate(with: $0) };
+            self.arrSearch.addObjects(from: filteredArray)
+        }
+        self.tbView.reloadData()
     }
     
     // MARK: - UIButton Action Methods -

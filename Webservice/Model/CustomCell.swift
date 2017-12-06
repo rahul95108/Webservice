@@ -4,6 +4,9 @@ import UIKit
 class CustomCell: UITableViewCell {
 
     @IBOutlet weak var lblTitle:UILabel!
+    @IBOutlet weak var lblDetail:UILabel!
+    
+    @IBOutlet weak var imgView:UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

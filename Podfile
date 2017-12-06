@@ -10,6 +10,7 @@ target 'Webservice' do
   pod 'AFNetworking', '~> 3.1'
   pod 'MBProgressHUD', '~> 1.1'
   pod 'Alamofire', '~> 4.5'
+  pod 'SDWebImage', '~> 4.2'
   
   target 'WebserviceTests' do
     inherit! :search_paths

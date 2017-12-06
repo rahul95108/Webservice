@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "405E493F70ACE5C533B0152020CDF8C6"
+               BlueprintIdentifier = "CA1DBFB30CF9FE8CB6DF12B10974F233"
                BuildableName = "Pods_Webservice.framework"
                BlueprintName = "Pods-Webservice"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "405E493F70ACE5C533B0152020CDF8C6"
+            BlueprintIdentifier = "CA1DBFB30CF9FE8CB6DF12B10974F233"
             BuildableName = "Pods_Webservice.framework"
             BlueprintName = "Pods-Webservice"
             ReferencedContainer = "container:Pods.xcodeproj">
